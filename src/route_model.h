@@ -16,6 +16,7 @@ class RouteModel : public Model {
         float h_value = std::numeric_limits<float>::max();
         float g_value = 0.0;
         bool visited = false;
+        float dijkstra_dist = -1.0; // Let -1.0 denote INFINITE
         std::vector<Node *> neighbors;
 
         void FindNeighbors();

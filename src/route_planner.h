@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "route_model.h"
+#include <queue>
 
 
 class RoutePlanner {
@@ -13,6 +14,7 @@ class RoutePlanner {
     // Add public variables or methods declarations here.
     float GetDistance() const {return distance;}
     void AStarSearch();
+    void DijkstraSearch();
 
     // The following methods have been made public so we can test them individually.
     void AddNeighbors(RouteModel::Node *current_node);
