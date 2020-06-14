@@ -108,7 +108,7 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
 
 void RoutePlanner::AStarSearch()
 {
-    std::cout << "SEARCH: A*" << std::endl;
+    //std::cout << "SEARCH: A*" << std::endl;
     RouteModel::Node *current_node = nullptr;
     // TODO: Implement your solution here.
     current_node = start_node;
@@ -125,7 +125,7 @@ void RoutePlanner::AStarSearch()
 
 void RoutePlanner::DijkstraSearch()
 {
-    std::cout << "SEARCH: Dijkstra" << std::endl;
+    //std::cout << "SEARCH: Dijkstra" << std::endl;
     start_node->dijkstra_dist = 0;
     start_node->visited = true;
 
@@ -149,7 +149,7 @@ void RoutePlanner::DijkstraSearch()
         //std::cout << "Tracing: " << current_node->x << ", " << current_node->y << std::endl;
         current_node->FindNeighbors();
         for(RouteModel::Node *n : current_node->neighbors) {
-            if(!n->visited) {
+            if(!n->dij_visited) {
                 //std::cout << n->x << ", " << n->y << std::endl;
                 float relative_dist = current_node->dijkstra_dist + current_node->distance(*n);
                 if(n->dijkstra_dist == -1 || n->dijkstra_dist > relative_dist) {
@@ -159,7 +159,7 @@ void RoutePlanner::DijkstraSearch()
                 }
             }
         }
-        current_node->visited = true;
+        current_node->dij_visited = true;
         if(current_node == end_node) break;
         else {
             current_node = pq.top();

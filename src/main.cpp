@@ -61,6 +61,7 @@ int main(int argc, const char **argv)
     // RoutePlanner object below in place of 10, 10, 90, 90.
     float start_x, start_y, end_x, end_y;
 
+    // Toggle this if you want to use inputs or a default value
     if (true)
     {
         start_x = 10;
@@ -86,17 +87,23 @@ int main(int argc, const char **argv)
     // Create RoutePlanner object and perform A* search.
     RoutePlanner route_planner{model, start_x, start_y, end_x, end_y};
 
+    // Time A*
     auto start_time = std::chrono::high_resolution_clock::now();
-  
     route_planner.AStarSearch();
-    //route_planner.DijkstraSearch();
-
     auto current_time = std::chrono::high_resolution_clock::now();
-    std::cout << "Program has been running for " 
+    std::cout << "\nA* Search Time: " 
         << std::chrono::duration_cast<std::chrono::microseconds>(current_time - start_time).count() 
         << " microseconds" << std::endl;
 
-    std::cout << "Distance: " << route_planner.GetDistance() << " meters. \n";
+    // Time Dijkstra
+    start_time = std::chrono::high_resolution_clock::now();
+    route_planner.DijkstraSearch();
+    current_time = std::chrono::high_resolution_clock::now();
+    std::cout << "Dijkstra Search Time: " 
+        << std::chrono::duration_cast<std::chrono::microseconds>(current_time - start_time).count() 
+        << " microseconds" << std::endl;
+
+    std::cout << "\nDistance: " << route_planner.GetDistance() << " meters. \n";
 
     // Render results of search.
     Render render{model};
